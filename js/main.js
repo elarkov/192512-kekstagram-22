@@ -28,7 +28,7 @@ const checkCharacterString = (value, max) => {
   return false;
 
 };
-console.log(getCharacterString('Василий привет как твои дела', MAX_LENGTH_STRING));
+checkCharacterString('Василий привет как твои дела', MAX_LENGTH_STRING);
 
 
 
