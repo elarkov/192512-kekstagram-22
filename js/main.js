@@ -1,3 +1,16 @@
+
+const NAMES_COMMENT = ['Женя', 'Вася', 'Егор', 'Вадим', 'Алена', 'Анжела'];
+const MSGS = [
+  'Всё отлично!',
+  'Всё отлично! В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+];
+
+const TOTAL_PICTURES = 25;
+
 //Функция, возвращающая случайное целое число
 const getRandomNumber = (minLimit, maxLimit) => {
   const numberRand = Math.random() * (maxLimit - minLimit) + minLimit;
@@ -23,12 +36,58 @@ const MAX_LENGTH_STRING = 140;
 const checkCharacterString = (value, max) => {
 
   if (value.length < max) {
-    return 'Строка проходит';
+    return getRandomArrayElement(MSGS);
   }
-  return false;
+  return getRandomArrayElement(MSGS).slice(0, 200);
 
 };
-checkCharacterString('Василий привет как твои дела', MAX_LENGTH_STRING);
+
+//Функция генерирует случайный элемент переданного массива
+const getRandomArrayElement = (elements) => {
+  return elements[generateIntegerNumber(0, elements.length - 1)];
+};
+
+checkCharacterString(getRandomArrayElement(MSGS), MAX_LENGTH_STRING);
+
+
+
+const createPicture = (index) => {
+  const id = index + 1;
+  const url = 'photos/' + id + '.jpg';
+  const avatarComment = 'img/avatar-' + generateIntegerNumber(1, 6) + '.svg';
+  const idComment = generateIntegerNumber(1, 100);
+  const randomNameComments = getRandomArrayElement(NAMES_COMMENT);
+  const randomMsgComments = checkCharacterString(MSGS);
+
+  return {
+    id: id,
+    url: url,
+    description: 'Очень красивая фотография',
+    likes: generateIntegerNumber(15, 200),
+    comments: [
+      {
+        id: idComment,
+        avatar: avatarComment,
+        message: randomMsgComments,
+        name: randomNameComments,
+      }
+    ],
+  };
+};
+
+const similarPictures = () => {
+  const nums = [];
+  for (let i = 0; i < 25; i++) {
+    nums.push(createPicture(i));
+  }
+  return nums;
+};
+
+console.log(similarPictures());
+
+
+
+
 
 
 
