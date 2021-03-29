@@ -8,6 +8,11 @@ const MSGS = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
+const DESCRIPTION = [
+  'Равным образом постоянный количественный рост и сфера нашей активности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям.',
+  'Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции позволяет оценить значение модели развития.',
+  'Идейные соображения высшего порядка, а также дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений.'
+]
 
 const TOTAL_PICTURES = 25;
 
@@ -29,16 +34,14 @@ const generateIntegerNumber = (min, max) => {
   checkOnNegativeNumber(min, max);
   return Math.floor(getRandomNumber(min, max));
 };
-generateIntegerNumber(0, 100);
 
 //Функция для проверки максимальной длины строки.
-const MAX_LENGTH_STRING = 140;
-const checkCharacterString = (value, max) => {
+const checkCharacterString = (value, maxLength) => {
 
-  if (value.length < max) {
-    return getRandomArrayElement(MSGS);
+  if (value.length <= maxLength) {
+    return true;
   }
-  return getRandomArrayElement(MSGS).slice(0, 200);
+  return false;
 
 };
 
@@ -47,26 +50,39 @@ const getRandomArrayElement = (elements) => {
   return elements[generateIntegerNumber(0, elements.length - 1)];
 };
 
-checkCharacterString(getRandomArrayElement(MSGS), MAX_LENGTH_STRING);
+//функция генерирует id так чтобы оне не повторялся в выведеных резултатх
+const getIdComment = () => {
+  const idComments = [];
+  const idComment = generateIntegerNumber(1, 100);
+  idComments.push(idComment);
+
+  if (idComments.length > 1) {
+    idComments.map((el) => (el = idComment) ? idComments.pop() : idComment);
+  } else {
+    return idComment;
+  }
+  return idComment;
+};
 
 
-
+//Функция генерирует 25 объектов карточек
 const createPicture = (index) => {
   const id = index + 1;
   const url = 'photos/' + id + '.jpg';
   const avatarComment = 'img/avatar-' + generateIntegerNumber(1, 6) + '.svg';
-  const idComment = generateIntegerNumber(1, 100);
+  const сommentId = getIdComment();
   const randomNameComments = getRandomArrayElement(NAMES_COMMENT);
-  const randomMsgComments = checkCharacterString(MSGS);
+  const randomMsgComments = getRandomArrayElement(MSGS);
+  const randomDescription = getRandomArrayElement(DESCRIPTION);
 
   return {
     id: id,
     url: url,
-    description: 'Очень красивая фотография',
+    description: randomDescription,
     likes: generateIntegerNumber(15, 200),
     comments: [
       {
-        id: idComment,
+        id: сommentId,
         avatar: avatarComment,
         message: randomMsgComments,
         name: randomNameComments,
@@ -75,15 +91,16 @@ const createPicture = (index) => {
   };
 };
 
-const similarPictures = () => {
+const getIdNumber = () => {
   const nums = [];
-  for (let i = 0; i < 25; i++) {
-    nums.push(createPicture(i));
+  for (let index = 0; index <= 25; index++) {
+    nums.push(createPicture(index));
   }
   return nums;
 };
 
-console.log(similarPictures());
+const similarPictures = getIdNumber();
+
 
 
 
