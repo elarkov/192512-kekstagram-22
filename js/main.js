@@ -1,5 +1,6 @@
 
 const NAMES_COMMENT = ['Женя', 'Вася', 'Егор', 'Вадим', 'Алена', 'Анжела'];
+
 const MSGS = [
   'Всё отлично!',
   'Всё отлично! В целом всё неплохо. Но не всё.',
@@ -8,13 +9,12 @@ const MSGS = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
+
 const DESCRIPTION = [
   'Равным образом постоянный количественный рост и сфера нашей активности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям.',
   'Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции позволяет оценить значение модели развития.',
-  'Идейные соображения высшего порядка, а также дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений.'
-]
-
-const TOTAL_PICTURES = 25;
+  'Идейные соображения высшего порядка, а также дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений.',
+];
 
 //Функция, возвращающая случайное целое число
 const getRandomNumber = (minLimit, maxLimit) => {
@@ -45,6 +45,8 @@ const checkCharacterString = (value, maxLength) => {
 
 };
 
+checkCharacterString();
+
 //Функция генерирует случайный элемент переданного массива
 const getRandomArrayElement = (elements) => {
   return elements[generateIntegerNumber(0, elements.length - 1)];
@@ -57,7 +59,7 @@ const getIdComment = () => {
   idComments.push(idComment);
 
   if (idComments.length > 1) {
-    idComments.map((el) => (el = idComment) ? idComments.pop() : idComment);
+    idComments.map(el => el = idComment ? idComments.pop() : idComment);
   } else {
     return idComment;
   }
@@ -86,7 +88,7 @@ const createPicture = (index) => {
         avatar: avatarComment,
         message: randomMsgComments,
         name: randomNameComments,
-      }
+      },
     ],
   };
 };
@@ -100,6 +102,7 @@ const getIdNumber = () => {
 };
 
 const similarPictures = getIdNumber();
+similarPictures();
 
 
 
