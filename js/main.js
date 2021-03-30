@@ -59,7 +59,7 @@ const getIdComment = () => {
   idComments.push(idComment);
 
   if (idComments.length > 1) {
-    idComments.map(el => el = idComment ? idComments.pop() : idComment);
+    idComments.map(el => el == idComment ? idComments.pop() : idComment);
   } else {
     return idComment;
   }
