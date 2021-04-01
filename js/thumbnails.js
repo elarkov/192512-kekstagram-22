@@ -1,4 +1,5 @@
 import { getPicCard } from './data.js';
+import { getBigPicture } from './big-thumb.js';
 
 const template = document.querySelector('#picture').content;
 const newItemTemplate = template.querySelector('.picture');
@@ -6,21 +7,26 @@ const pictureFragment = document.createDocumentFragment();
 const pictures = document.querySelector('.pictures');
 const similarPictures = getPicCard(1);
 
-similarPictures.forEach(({ url, likes, comments }) => {
-  const clonedElement = newItemTemplate.cloneNode(true);
+const showPhoto = () => {
+  similarPictures.forEach((el) => {
+    const picture = newItemTemplate.cloneNode(true);
+    const urlImg = picture.querySelector('.picture__img');
+    const like = picture.querySelector('.picture__likes');
+    const comment = picture.querySelector('.picture__comments');
 
-  const urlImg = clonedElement.querySelector('.picture__img');
-  const like = clonedElement.querySelector('.picture__likes');
-  const comment = clonedElement.querySelector('.picture__comments');
+    urlImg.src = el.url;
+    like.textContent = el.likes;
+    comment.innerHTML = el.comments.length;
 
-  urlImg.src = url;
-  like.textContent = likes;
-  comment.innerHTML = comments.length;
+    picture.addEventListener('click', getBigPicture(el));
 
-  pictureFragment.appendChild(clonedElement);
-});
+    pictureFragment.appendChild(picture);
+  });
 
-pictures.appendChild(pictureFragment);
+  pictures.appendChild(pictureFragment);
+};
+
+export { showPhoto };
 
 
 

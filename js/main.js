@@ -1,7 +1,9 @@
 import { isLengthString } from './util.js';
-import './thumbnails.js';
+import { generateCommentMessage } from './comment.js';
+import { showPhoto } from './thumbnails.js';
 
-isLengthString();
+showPhoto();
+isLengthString(generateCommentMessage().message);
 
 
 
