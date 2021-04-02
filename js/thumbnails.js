@@ -5,10 +5,12 @@ const template = document.querySelector('#picture').content;
 const newItemTemplate = template.querySelector('.picture');
 const pictureFragment = document.createDocumentFragment();
 const pictures = document.querySelector('.pictures');
-const similarPictures = getPicCard(1);
+const similarPictures = getPicCard();
+
 
 const showPhoto = () => {
   similarPictures.forEach((el) => {
+
     const picture = newItemTemplate.cloneNode(true);
     const urlImg = picture.querySelector('.picture__img');
     const like = picture.querySelector('.picture__likes');
@@ -17,10 +19,9 @@ const showPhoto = () => {
     urlImg.src = el.url;
     like.textContent = el.likes;
     comment.innerHTML = el.comments.length;
-
     picture.addEventListener('click', getBigPicture(el));
-
     pictureFragment.appendChild(picture);
+
   });
 
   pictures.appendChild(pictureFragment);

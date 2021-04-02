@@ -1,5 +1,3 @@
-
-
 const bigPictureContainer = document.querySelector('.big-picture');
 const imgBig = document.querySelector('.big-picture__img img');
 const countLikes = document.querySelector('.likes-count');
@@ -17,6 +15,7 @@ const bodyEl = document.querySelector('body');
 const getBigPicture = (picture) => {
   return (evt) => {
     evt.preventDefault();
+    
     bigPictureContainer.classList.remove('hidden');
     bodyEl.classList.add('modal-open');
     countCommentSocial.classList.add('hidden');
@@ -35,7 +34,7 @@ const getBigPicture = (picture) => {
       const comment = commentSocial.cloneNode(true);
       const img = comment.querySelector('.social__picture');
       const msg = comment.querySelector('.social__text');
-      
+
       img.src = avatar;
       img.alt = name;
       msg.innerHTML = message;
