@@ -1,21 +1,6 @@
 const MIN_VALUE = 25;
 const STEP_VALUE = 25;
 const MAX_VALUE = 100;
-const uploadForm = document.querySelector('.img-upload__form');
-const uploadFileInput = uploadForm.querySelector('#upload-file');
-const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
-const body = document.querySelector('body');
-const imgPreview = document.querySelector('.img-upload__preview');
-const closeButton = uploadOverlay.querySelector('.img-upload__cancel');
-const scaleContainer = document.querySelector('.scale');
-const scaleValueControl = scaleContainer.querySelector('.scale__control--value');
-const scaleSmallerButton = scaleContainer.querySelector('.scale__control--smaller');
-const scaleBiggerButton = scaleContainer.querySelector('.scale__control--bigger');
-const effectElementRadio = uploadForm.querySelectorAll('.effects__radio');
-const effectPreviewSpan = uploadForm.querySelectorAll('.effects__preview');
-const sliderElement = uploadForm.querySelector('.effect-level__slider');
-const effectSliderValue = uploadForm.querySelector('.effect-level__value');
-
 const MIN_FILTER_VALUE = 0;
 const MAX_FILTER_VALUE = 100;
 const MIN_START_VALUE = 100;
@@ -37,7 +22,22 @@ const MAX_FILTER_VALUE_HEAT = 3;
 const MIN_START_VALUE_HEAT = 3;
 const STEP_VALUE_EFFECT_HEAT = 0.1;
 
+const uploadForm = document.querySelector('.img-upload__form');
+const uploadFileInput = uploadForm.querySelector('#upload-file');
+const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
+const body = document.querySelector('body');
+const imgPreview = document.querySelector('.img-upload__preview');
+const closeButton = uploadOverlay.querySelector('.img-upload__cancel');
+const scaleContainer = document.querySelector('.scale');
+const scaleValueControl = scaleContainer.querySelector('.scale__control--value');
+const scaleSmallerButton = scaleContainer.querySelector('.scale__control--smaller');
+const scaleBiggerButton = scaleContainer.querySelector('.scale__control--bigger');
+const effectElementRadio = uploadForm.querySelectorAll('.effects__radio');
+const effectPreviewSpan = uploadForm.querySelectorAll('.effects__preview');
+const sliderElement = uploadForm.querySelector('.effect-level__slider');
+const effectSliderValue = uploadForm.querySelector('.effect-level__value');
 
+/* Library is NOUISLIDER (https://refreshless.com/nouislider) */
 noUiSlider.create(sliderElement, {
   range: {
     min: MIN_FILTER_VALUE,
