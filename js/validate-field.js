@@ -1,5 +1,7 @@
-const hashtag = document.querySelector('.text__hashtags');
+import { isLengthString } from './util.js';
 
+const hashtag = document.querySelector('.text__hashtags');
+const commentTextarea = document.querySelector('.text__description');
 
 const isHashtagLetter = (tag) => {
   const pattern = /[А-Яа-яёЁ0-9]/;
@@ -32,15 +34,14 @@ const isHashtagSharp = (tag) => {
 
 const isHastagEqual = (hashtagsArray) => {
   for (let i = 0; i < hashtagsArray.length - 1; i++) {
-    if (hashtagsArray[i].toUpperCase() === hashtagsArray[i+1].toUpperCase()) {
+    if (hashtagsArray[i].toUpperCase() === hashtagsArray[i + 1].toUpperCase()) {
       return true;
     }
   }
   return false;
-}
+};
 
 const checkValidityHashtag = () => {
-
   hashtag.addEventListener('input', () => {
     if (hashtag.value === '') {
       return true;
@@ -71,6 +72,7 @@ const checkValidityHashtag = () => {
           hashtag.setCustomValidity('');
         }
       }
+      hashtag.reportValidity();
     }
 
 
@@ -78,4 +80,19 @@ const checkValidityHashtag = () => {
   });
 };
 
-export { checkValidityHashtag };
+const checkValidityComment = () => {
+  commentTextarea.addEventListener('input', () => {
+    if (commentTextarea.value === '') {
+      return true;
+    } else {
+      if (!isLengthString(commentTextarea.value)) {
+        commentTextarea.setCustomValidity('Длина комментария должна быть не более 140 символов');
+      } else {
+        commentTextarea.setCustomValidity('');
+      }
+      commentTextarea.reportValidity();
+    }
+  });
+};
+
+export { checkValidityHashtag, checkValidityComment };
