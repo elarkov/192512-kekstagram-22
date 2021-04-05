@@ -11,7 +11,8 @@ const scaleContainer = document.querySelector('.scale');
 const scaleValueControl = scaleContainer.querySelector('.scale__control--value');
 const scaleSmallerButton = scaleContainer.querySelector('.scale__control--smaller');
 const scaleBiggerButton = scaleContainer.querySelector('.scale__control--bigger');
-const effectElementRadio = uploadForm.querySelectorAll('.effects__preview');
+const effectElementRadio = uploadForm.querySelectorAll('.effects__radio');
+const effectPreviewSpan = uploadForm.querySelectorAll('.effects__preview');
 const sliderElement = uploadForm.querySelector('.effect-level__slider');
 const effectSliderValue = uploadForm.querySelector('.effect-level__value');
 
@@ -63,6 +64,7 @@ const uploadPicture = () => {
   const openFormEdit = () => {
     uploadOverlay.classList.remove('hidden');
     body.classList.add('modal-open');
+    imgPreview.firstElementChild.style.filter = 'none';
   };
 
   const closeFormEdit = () => {
@@ -117,18 +119,19 @@ const changeEffectFilter = () => {
   for (let i = 0; i < effectElementRadio.length; i++) {
     effectElementRadio[i].addEventListener('click', () => {
       imgPreview.firstElementChild.className = '';
-      imgPreview.firstElementChild.classList.add(String(effectElementRadio[i].classList[1]));
-      if (effectElementRadio[i].classList[1] == 'effects__preview--none') {
+      imgPreview.firstElementChild.classList.add(String(effectPreviewSpan[i].classList[1]));
+
+      if (effectPreviewSpan[i].classList[1] == 'effects__preview--none') {
         sliderElement.style.display = 'none';
         sliderElement.noUiSlider.updateOptions({
           range: {
-            min: MIN_FILTER_VALUE
+            min: MIN_FILTER_VALUE,
             max: MAX_FILTER_VALUE,
           },
           start: MIN_START_VALUE,
           step: STEP_VALUE_EFFECT,
         });
-      } else if (effectElementRadio[i].classList[1] == 'effects__preview--chrome' || effectElementRadio[i].classList[1] == 'effects__preview--sepia') {
+      } else if (effectPreviewSpan[i].classList[1] == 'effects__preview--chrome' || effectPreviewSpan[i].classList[1] == 'effects__preview--sepia') {
         sliderElement.style.display = 'block';
         sliderElement.noUiSlider.updateOptions({
           range: {
@@ -138,7 +141,7 @@ const changeEffectFilter = () => {
           start: MIN_START_VALUE_CHROME,
           step: STEP_VALUE_EFFECT_CHROME,
         });
-      } else if (effectElementRadio[i].classList[1] == 'effects__preview--marvin') {
+      } else if (effectPreviewSpan[i].classList[1] == 'effects__preview--marvin') {
         sliderElement.style.display = 'block';
         sliderElement.noUiSlider.updateOptions({
           range: {
@@ -148,7 +151,7 @@ const changeEffectFilter = () => {
           start: MIN_START_VALUE_MARVIN,
           step: STEP_VALUE_EFFECT_MARVIN,
         });
-      } else if (effectElementRadio[i].classList[1] == 'effects__preview--phobos') {
+      } else if (effectPreviewSpan[i].classList[1] == 'effects__preview--phobos') {
         sliderElement.style.display = 'block';
         sliderElement.noUiSlider.updateOptions({
           range: {
@@ -158,7 +161,7 @@ const changeEffectFilter = () => {
           start: MIN_START_VALUE_PHOBOS,
           step: STEP_VALUE_EFFECT_PHOBOS,
         });
-      } else if (effectElementRadio[i].classList[1] == 'effects__preview--heat') {
+      } else if (effectPreviewSpan[i].classList[1] == 'effects__preview--heat') {
         sliderElement.style.display = 'block';
         sliderElement.noUiSlider.updateOptions({
           range: {
@@ -171,30 +174,30 @@ const changeEffectFilter = () => {
       }
 
       sliderElement.noUiSlider.on('update', (value, handle) => {
-        effectSliderValue .setAttribute('value', value[handle]);
-        switch (effectElementRadio[i].classList[1]) {
+        effectSliderValue.setAttribute('value', value[handle]);
+        switch (effectPreviewSpan[i].classList[1]) {
           case 'effects__preview--none': {
-            imgPreview.style.filter = 'none';
+            imgPreview.firstElementChild.style.filter = 'none';
             break;
           }
           case 'effects__preview--chrome': {
-            imgPreview.style.filter = 'grayscale(1)';
+            imgPreview.firstElementChild.style.filter = `grayscale(${value[handle]})`;
             break;
           }
           case 'effects__preview--sepia': {
-            imgPreview.style.filter = 'sepia(1)';
+            imgPreview.firstElementChild.style.filter = `sepia(${value[handle]})`;
             break;
           }
           case 'effects__preview--marvin': {
-            imgPreview.style.filter = 'invert(100%)';
+            imgPreview.firstElementChild.style.filter = `invert(${value[handle]}%)`;
             break;
           }
           case 'effects__preview--phobos': {
-            imgPreview.style.filter = 'blur(3px)';
+            imgPreview.firstElementChild.style.filter = `blur(${value[handle]}px)`;
             break;
           }
           case 'effects__preview--heat': {
-            imgPreview.style.filter = 'brightness(3)';
+            imgPreview.firstElementChild.style.filter = `brightness(${value[handle]})`;
             break;
           }
         }
